@@ -1,0 +1,54 @@
+﻿@model Entities.Dtos.UserForLoginDto
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </body>
+</html>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Sayfanın yeniden yüklenmesini engellemek için form submit olayını durdurun
+
+        var formData = new FormData(this); // Form verilerini alın
+        var loginData = {
+            email: formData.get('email'),
+            password: formData.get('password')
+        };
+
+        // API'ye login isteği gönderin
+        fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Login failed.');
+                }
+                // Başarılı giriş durumunda sayfayı yeniden yükle
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Login error:', error);
+                alert('Login failed. Please check your email and password.');
+            });
+    });
+</script>

@@ -1,0 +1,20 @@
+﻿@model Entities.Dtos.CustomerForRegisterDto
+
+<h2>Kullanıcı Kaydı</h2>
+
+<form asp-controller="Auth" asp-action="Register" method="post">
+    <div>
+        <label asp-for="Email">E-posta</label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="Password">Şifre</label>
+        <input asp-for="Password" type="password" />
+    </div>
+    <div>
+        <label asp-for="ConfirmPassword">Şifreyi Onayla</label>
+        <input asp-for="ConfirmPassword" type="password" />
+    </div>
+    <button type="submit">Kaydol</button>
+</form>
+
